@@ -1,26 +1,35 @@
+from src.inputlib.helpers import askUntil
+from src.validationlib.validation import greaterOrEqualThenZero, validInt
+
+
 class VoteWeekday:
-	def __init__(self, weekday, qtyVote):
-		self.weekday = weekday
-		self.qtyVote = int(qtyVote)
-
-def validInput(inputValue):
-	try:
-		castValue = int(inputValue)
-		if (castValue > 0):
-			return True
-	except:
-		return False
-
-weekdays = ["Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira"]
-lastHighestVote = 0
-voteWeekday = {}
-for weekday in weekdays:
-	qtyVote = 0
-	while not validInput(qtyVote):
-		qtyVote = input("Informe o total de votos para " + weekday + " -> ")
-	if (int(qtyVote) > lastHighestVote):
-		voteWeekday = VoteWeekday(weekday, qtyVote)
-		lastHighestVote = int(qtyVote)
+    def __init__(self, weekday, qtyVote):
+        self.weekday = weekday
+        self.qtyVote = int(qtyVote)
 
 
-print("O dia com mais votos é " + voteWeekday.weekday + " com " + str(voteWeekday.qtyVote) + " votos")
+def validVote(inputValue):
+    return validInt(inputValue) and greaterOrEqualThenZero(inputValue)
+
+
+weekdays = [
+    "Segunda-Feira",
+    "Terça-Feira",
+    "Quarta-Feira",
+    "Quinta-Feira",
+    "Sexta-Feira"
+]
+
+
+def run():
+    lastHighestVote = 0
+    biggerVoteWeekday = {}
+    for weekday in weekdays:
+        qtyVote = askUntil('Informe o total de votos para ' +
+                           weekday + ' -> ', validVote)
+        if (int(qtyVote) > lastHighestVote):
+            biggerVoteWeekday = VoteWeekday(weekday, qtyVote)
+            lastHighestVote = int(qtyVote)
+
+    print("O dia com mais votos é " + biggerVoteWeekday.weekday +
+          " com " + str(biggerVoteWeekday.qtyVote) + " votos")

@@ -1,9 +1,8 @@
 import unittest
 from unittest import TestCase
-from unittest.mock import Mock, MagicMock, patch
+from unittest.mock import patch
 import pytest
 from src.cap2.RM86098_EX01 import validInput, getCategory, run
-
 
 class TestEx01(TestCase):
 
@@ -49,9 +48,4 @@ class TestEx01(TestCase):
 
     @patch('src.cap2.RM86098_EX01.askUntil', side_effect = [72.2, 1.7])
     def test_run(self, mock):
-        result = run()
-        assert result == 'Peso ideal'
-
-
-if __name__ == '__main__':
-    unittest.main()
+        assert run() == 'Peso ideal'

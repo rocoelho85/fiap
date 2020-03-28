@@ -1,4 +1,5 @@
 from src.inputlib.helpers import askUntil
+from src.validationlib.validation import validFloat, greaterThenZero
 
 class ImcCategory:
     def __init__(self, rangeMin, rangeMax, description):
@@ -27,12 +28,7 @@ def getCategory(imc):
     return ""
 
 def validInput(inputValue):
-    try:
-        castValue = float(inputValue)
-        if (castValue > 0):
-            return True
-    except:
-        return False
+    return validFloat(inputValue) and greaterThenZero(inputValue)
 
 def run():
     weight = askUntil('Informe seu peso -> ', validInput)
